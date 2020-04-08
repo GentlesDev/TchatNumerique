@@ -1,0 +1,110 @@
+<?php if (array_key_exists('role', $_SESSION) === false) {
+    Header('Location: login.php');
+    exit();
+} else { ?>
+    <div class="container clearfix">
+        <div class="people-list" id="people-list">
+            <div class="search">
+                <input type="text" id="search" placeholder="Search" />
+                    <li class="clearfix">
+                        <h3>MOI</h3>
+                        <div class="about">
+                            <div class="regroup">
+                                <div class="name">
+                                    <?= $_SESSION['pseudo'] ?>
+                                </div>
+                                <div class="status">
+                                    <i class="fa fa-circle me"></i> <?= $_SESSION['status'] ?>
+                                </div>
+                            </div>
+                            <div class="infos hide">
+                                <ul>
+                                    <li>Prénom: <?= $_SESSION['firstname'] ?></li>
+                                    <li>Nom: <?= $_SESSION['lastname'] ?></li>
+                                    <li>Email: <?= $_SESSION['email'] ?></li>
+                                </ul>
+                                <button class="button-close">Fermer</button>
+                            </div>
+                        </div>
+                    </li>
+                    <hr>
+                    <h3>GROUPE <?= $_SESSION['promo'] ?></h3>
+                    <div id="display">
+                    <ul class="list" id="users">
+                        <?php foreach ($users as $user) { 
+                            if($user['Id'] !== $_SESSION['id']){ ?>
+                            <li class="clearfix">
+                                <div class="about">
+                                    <div class="regroup">
+                                        <div class="name">
+                                            <?= $user['Pseudo'] ?>
+                                        </div>
+                                        <?php if($user['Status'] === "en ligne") {?>
+                                        <div class="status">
+                                            <i class="fa fa-circle online"></i> <?= $user['Status'] ?>
+                                        </div>
+                                        <?php }else {?>
+                                            <div class="status">
+                                            <i class="fa fa-circle offline"></i> <?= $user['Status'] ?>
+                                        </div>
+                                        <?php }?>
+                                    </div>
+                                    <div class="infos hide">
+                                        <ul>
+                                            <li>Prénom: <?= $user['FirstName'] ?></li>
+                                            <li>Nom: <?= $user['LastName'] ?></li>
+                                            <li>Email: <?= $user['Email'] ?></li>
+                                        </ul>
+                                        <button class="button-close">Fermer</button>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php }} ?>
+                        </ul>
+                        </div>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="chat-about">
+                <h1>Tchat Numérique de la session <?= $_SESSION['promo'] ?></h1>
+            </div>
+            <div class="chat-history" id="history">
+                <ul class="tchat-message" id="tchat">
+                    <?php foreach ($messages as $message) {
+                        if ($message['Author'] === $_SESSION['pseudo']) { ?>
+                            <li class="clearfix">
+                                <div class="message-data align-right">
+                                    <span class="message-data-time"><?= date('d/m/Y à H:i:s', strtotime($message['CreationTimestamp'])) ?></span> &nbsp; &nbsp;
+                                    <span class="message-data-name"><?= $message['Author'] ?></span> <i class="fa fa-circle me"></i>
+                                </div>
+                                <div class="message other-message float-right"><?= $message['Content'] ?></div>
+                            </li>
+                        <?php } else { ?>
+                            <li>
+                                <div class="message-data">
+                                    <span class="message-data-name"><i class="fa fa-circle online"></i> <?= $message['Author'] ?></span>
+                                    <span class="message-data-time"><?= date('d/m/Y à H:i:s', strtotime($message['CreationTimestamp'])) ?></span>
+                                </div>
+                                <div class="message my-message"><?= $message['Content'] ?></div>
+                            </li>
+                        <?php } ?>
+                    <?php } ?>
+                </ul>
+                <input type="button" class="newMsg" id="down" onClick="goDown()" value="Derniers Messages" />
+            </div>
+            <!-- end chat-history -->
+            <form action="index.php" method="post">
+                <div class="chat-message clearfix">
+                    <textarea class="form-control textarea-control" name="message" id="message" rows="3" placeholder="Entrez votre message" data-emojiable="true" data-emoji-input="unicode"></textarea>
+                    <input type="submit" id="send" value="Envoyer" class="send-msg" />
+            </form>
+        </div>
+        <!-- end chat-message -->
+    </div>
+    <!-- end chat -->
+    </div>
+    <!-- end container -->
+<?php } ?>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/chat.js"></script>

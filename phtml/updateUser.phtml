@@ -1,0 +1,27 @@
+    <link rel="stylesheet" href="css/style.css">
+    <?php if (array_key_exists('role', $_SESSION) === false) {
+        Header('Location: login.php');
+        exit();
+    } else { ?>
+        <div class="container clearfix offers">
+            <form action="updateUser.php" method="post">
+            <div class="user-info">
+                <label for="firstname" class="label">Prénom : </label>
+                <input type="text" name="firstname" id="firstname" value="<?= $_SESSION['firstname'] ?>" placeholder="Prénom" required class="offer-detail">
+            </div>
+            <div class="user-info">
+                <label for="lastname" class="label">Nom : </label>
+                <input type="text" name="lastname" id="lastname" value="<?= $_SESSION['lastname'] ?>" placeholder="Nom" required class="offer-detail">
+            </div>
+            <div class="user-info">
+                <label for="pseudo" class="label">Pseudo : </label>
+                <input type="text" name="pseudo" id="pseudo" value="<?= $_SESSION['pseudo'] ?>" placeholder="Pseudo" required class="offer-detail">
+            </div>
+            <div class="user-info">
+                <label for="email" class="label">Email : </label>
+                <input type="text" name="email" id="email" value="<?= $_SESSION['email'] ?>" placeholder="Email" required class="offer-detail">
+            </div>
+                <button type="submit" class="postule btn">Modifier</button>
+            </form>
+        </div>
+    <?php } ?>

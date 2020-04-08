@@ -1,0 +1,10 @@
+<link rel="stylesheet" href="css/style.css">
+<div class="offers">
+<a href="offer.php" class="postule btn back">Retour</a>
+    <form action="updateOffer.php" method="post">
+        <input type="text" name="url" value="<?= $offre['Url'] ?>" placeholder="Url de l'offre" required class="offer-detail">
+        <input type="text" name="title" value="<?= $offre['Title'] ?>" placeholder="Titre de l'offre" required class="offer-detail">
+        <input type="hidden" name="id" value="<?= $offre['Id'] ?>">
+        <button type="submit" class="postule btn">Modifier</button>
+    </form>
+</div>

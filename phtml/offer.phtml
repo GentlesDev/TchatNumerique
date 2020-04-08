@@ -1,0 +1,26 @@
+<div class="offers">
+    <h2 class="title-offer">Les offres:</h2>
+    <?php if ($_SESSION['role'] === 'admin') { ?>
+        <p class="unhide-offer">Ajouter une offre <i class="fas fa-plus-circle"></i></p>
+        <p class="hide-offer hide-p">Fermer <i class="fas fa-times-circle"></i></p>
+        <form action="offer.php" method="post" class="add-offer">
+            <input type="text" name="url" placeholder="url de l'offre" required class="offer-detail">
+            <input type="text" name="title" placeholder="Titre de l'offre" required class="offer-detail">
+            <button type="submit" class="offer-submit">Ajouter</button>
+        </form>
+    <?php } ?>
+    <ul class="offers-list">
+        <?php foreach ($offres as $offre) { ?>
+            <li class="offer-infos">
+                <a href="<?= $offre['Url'] ?>" target="_blank" class="link"><?= $offre['Title'] ?></a>
+                <a href="<?= $offre['Url'] ?>" target="_blank" class="postule btn">POSTULER !</a>
+                <?php if ($_SESSION['role'] === 'admin') { ?>
+                    <a href="deleteOffer.php?id=<?= $offre['Id'] ?>" class="offer-action"><i class="fas fa-trash-alt"></i></a>
+                    <a href="updateOffer.php?id=<?= $offre['Id'] ?>" class="offer-action"><i class="fas fa-pen"></i></a>
+                <?php } ?>
+                <p><em>Mis en ligne le <?= date('d/m/Y', strtotime($offre['CreationTimestamp'])) ?></em></p>
+            </li>
+        <?php } ?>
+    </ul>
+</div>
+<script src="js/offer.js"></script>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php if ($template != 'login') { ?>
+        <link rel="stylesheet" href="css/style.css">
+    <?php }else{ ?>
+        <link rel="stylesheet" href="css/log.css">
+    <?php } ?>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <title>Tchat Numérique</title>
+</head>
+
+<body>
+    <?php if ($template != 'login') { ?>
+        <nav class="nav-bar">
+            <ul class="list-main">
+                <li><a href="index.php">Accueil</a></li>
+                <li><a href="offer.php">Offres d'emplois</a></li>
+                <li><a href="https://www.societe.com/societe/ecole-numerique-solidaire-des-quartiers-850746090.html" target="_blank">Qui sommes-nous ?</a></li>
+                <div class="list-hide">
+                <li class="second-element"><i class="fas fa-cogs"></i> <i class="fas fa-angle-down"></i></li>
+                    <ul class="second-list hide-list">
+                        <li><a href="updateUser.php">Mes infos</a></li>
+                        <li><a href="logout.php">Déconnexion</a></li>
+                    </ul>
+                </div>
+            </ul>
+        </nav>
+    <?php } ?>
+    <main>
+        <?php include $template . '.phtml'; ?>
+    </main>
+</body>
+<script>
+    $('.second-element').on('click', function(){
+        $('.second-list').toggleClass('hide-list');
+    });
+</script>
+
+</html>
